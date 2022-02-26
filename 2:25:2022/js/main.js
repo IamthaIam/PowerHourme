@@ -61,61 +61,70 @@ console.log(number)
     // }
 
 
-
-// document.querySelector("section").addEventListener('click', changeGreen)
-
-// function changeGreen(){
-//     document.querySelector("#nikki").style.backgroundColor = "green"
-// }
-
-// const nikki = document.getElementById("nikki")
-
-// nikki.onclick = changeBlue
-
-// function changeBlue(){
-//     nikki.style.backgroundColor = "red"
-// }
-
-// arrow functions
-//document.querySelectorAll("section").addEventListener('click', (e) => document.querySelector("section").style.backgroundColor = "green")
-
-
-
-// let arr = [box1, box2, box3, box4]
-
-
-// const boxNodeList = document.querySelectorAll(".blue")
-
-// Array.from(boxNodeList).forEach(boxes => boxes.addEventListener('click', changeBlue))
-
-// function changeBlue(click){
-//     // document.querySelector(".blue").style.backgroundColor = "green"
-
-//     if(click.target.classList.contains("blue")){
-//         document.querySelector('#nikki').classList.toggle("display")
-//     } else {
-//         document.querySelector('#nikki').style.background = "red"
-//     }
-       
+//Dom manipulation - Let's talk about how we can use JS to make changes on our webpage. Our index.html file has 4 sections. 3 have a class of "blue" and 1 has an id of "nikki"
+    //Objects, properties, and methods - On a high level, think of Objects like nouns in javascript, properties are similar to adjectives and are used to describe Objects, and methods are like verbs and define the behavior when we use console.log() for example, the console is an Object and log() is a method that is being called on the console.
     
-// }
+    
+    //When we want to find a specific element in the DOM, we use the object called the document. The document has a method called querySelector which we use to find an element in the document. 
+    // In the example below, we are telling our program to "Go to the document and find the element that has a class of "blue". We know that it's looking for a class because like CSS, we are using that "." to denote a class
+    document.querySelector(".blue")
 
-// function changeNikki(){
-//     document.getElementById("nikki").onclick = changeGreen
-// }
+    //Currently, all of our boxes are blue. Let's change the color of the "nikki" box
+    // On the line below, I am storing the section with the ID of Nikki in to a variable that I am calling nikki, since it will be more compact than typing document.getElementById("nikki") every time. This is a good use of variables 
+    const nikki = document.getElementById("nikki")
+
+    // In the function below, you can see that DOM elements have a Property called "style" which we can use to change CSS properties. You can change any of the CSS properties using JS. In this case we are going to set the background to green
+    function changeGreen(){
+        nikki.style.background = "green"
+    }
+    //Uncomment the line below and refresh your browser, you will see that the nikki box will now change to the background green. Afterwards, RECOMMENT THE NEXT LINE as we are going to call the function a different way.
+    // changeGreen()
+    // Dont forget to comment this^^ line again!
+
+    //Let's say we only wanted to change the nikki box when it's clicked. In JS, we have event handlers. There are properties that manage actions such as mouse clicks or key presses. There is an onclick property that is called on the targeted element. We want to call the changeGreen() function now only when the nikki box is clicked.
+    // Another way to accomplish this is by using the addEventListener() method. It takes two arguments, the event (in this case a click) and the function that will be executed when the click occurs. Try uncommenting one and then the other. You will see the functionality is the same. Moving forward we will use the addEventListener() method.
+    // nikki.onclick = changeGreen
+    // nikki.addEventListener('click', changeGreen)
 
 
-//parameters
+    //Next, we have boxes 1, 2, and 4. Let's say we wanted to change ANY of these boxes to color red, if they are clicked. We're going to introduce arrow functions and the forEach method.
+    
+    //The document has another method called querySelctorAll which collects multiple elements and stores them in a data type called a nodelist. Let's store our nodeList of boxes 1,2,and 4 in a variable called boxNodeList
+    const boxNodeList = document.querySelectorAll(".blue")
+    //check out the NodeList in the console. Hover over the sections to see the higlights!
+    console.log(boxNodeList)
 
-// function giveMeANum(){
-//     return 23
-// }
+    // arrow functions - An arrow function is denoted by this symbol "=>" It is a compact way to write functions. What we are seeing below is the forEach method which takes in another function as a parameter. We are creating the function within the forEach() method using the => syntax. This function is anonymous and doesnt have a name but it does have a parameter that we have called "box" (we can call it anything but I used "box" for readability.) The line below can be read in English as "Find our boxNodeList (which holds the 1, 2, and 4 boxes in our browser) and for each box in there, we are going to listen for the click event. If that click occurs, run the changeRed function"
+    boxNodeList.forEach(box => box.addEventListener('click', changeRed))
 
-// function add(funct){
-  
-//     console.log(funct)
-// }
+    // Now changeRed takes in a parameter we have called click. This click Object, is a pointer (a bit high level) but it has a Property called "target". This click.target holds the section (or box) that the click occured on. This way we can tell our browser exactly which box to chage the style on.
+    function changeRed(click){
+        click.target.style.background = "red"
+    }
 
+    //Finally, let's try some conditional logic. Let's say we want to only make Nikki dissapear if the get rid of nikki box is clicked. 
+    //First, lets put both the lavendar boxes in a nodeList
 
-// add(giveMeANum())
+    let lavendar = document.querySelectorAll(".lavendar")
+
+    //Some browsers don't recognize forEach on a node list so let's try it on a different data structure called an Array. Think of it like a list of items. Let's reassign lavendar, to the Array as opposed to the nodelist. Check your console to see the difference!
+    console.log("This is the nodeList: ", lavendar)
+
+    lavendar = Array.from(lavendar)
+
+    console.log("This is the array: ", lavendar)
+
+    //Similar to the boxNodeList, here, I am adding the event listener to each of the lavendar boxes in the dom 
+    lavendar.forEach(element => element.addEventListener('click', byeNikki))
+
+    //In the .html file, you see the get rid of nikki has an addiitonal class called "remove". This byeNikki function is going to check to see if the clicked box has a class of remove, and if it does, it will add the class "display" (check the CSS file) to the nikki box. Thus setting the display property to none on nikki. Otherwise, we're going to make the nikki box have a color of yellow.
+    function byeNikki(click){
+        if(click.target.classList.contains("remove")){
+            nikki.classList.toggle("display")
+        } else {
+            nikki.style.background = "yellow"
+        }
+    }
+
+//I hope this helps anyone out there get a better understanding of the basics of JavaScript and Dom manipulation. -Zrybea
 
