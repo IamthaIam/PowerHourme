@@ -103,6 +103,8 @@ Objects, properties, and methods - In a general sense, think of Objects like nou
 
 */
 
+console.log(document)
+
     // In the example below, we are telling our program to "Go to the document and find the element that has a class of "blue". We know that it's looking for a class because like CSS, we are using that "." to denote a class. We can similarly use "#" to target an Id
     document.querySelector(".blue")
 
